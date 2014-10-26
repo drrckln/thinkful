@@ -23,7 +23,7 @@ def fizzbuzz():
             user_input = int(user_input)
             break
         except:
-            print "That's not a number!"
+            print "That's not a natural number!"
             user_input = raw_input("How far do you want to go? (1-?): ")
 
     user_range = range(1,user_input+1)
@@ -31,10 +31,13 @@ def fizzbuzz():
     # do with a while loop as well
     for num in user_range:
         if num % 3 == 0 and num % 5 == 0:
-            print "Fizz Buzz"
+            print "bizzbuzz"
         elif num % 3 == 0:
-            print "Fizz"
+            print "fizz"
         elif num % 5 == 0:
-            print "Buzz"
+            print "buzz"
         else:
             print num
+
+if __name__ == "__main__":
+    fizzbuzz()
