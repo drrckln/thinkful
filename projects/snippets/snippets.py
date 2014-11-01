@@ -36,5 +36,12 @@ def main():
     parser = make_parser()
     arguments = parser.parse_args(sys.argv[1:])
 
+    arguments = vars(arguments)
+    command = arguments.pop("command")
+
+    if command == "put":
+        name, snippet = put(**arguments)
+        print "Stored {!r} as {!r}".format(snippet, name)
+
 if __name__ == "__main__":
     main()
