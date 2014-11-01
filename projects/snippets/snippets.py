@@ -36,7 +36,9 @@ def main():
     parser = make_parser()
     arguments = parser.parse_args(sys.argv[1:])
 
+    print arguments
     arguments = vars(arguments)
+    print arguments
     command = arguments.pop("command")
 
     if command == "put":
