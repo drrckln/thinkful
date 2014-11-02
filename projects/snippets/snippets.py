@@ -2,6 +2,8 @@ import logging
 import csv
 import argparse
 import sys
+import shutil
+from tempfile import NamedTemporaryFile
 
 def make_parser():
     logging.info("Constructing parser")
@@ -28,10 +30,25 @@ logging.basicConfig(filename="output.log", level=logging.DEBUG)
 def put(name, snippet, filename):
     logging.info("Writing {!r}:{!r} to {!r}".format(name, snippet, filename))
     logging.debug("Opening file")
-    with open(filename, "a") as f:
-        writer = csv.writer(f)
-        logging.debug("Writing snippet to file")
-        writer.writerow([name, snippet])
+    x, result = get(name, filename)
+    if result == "This snippet name is nonexistent.":
+        with open(filename, "a") as f:
+            writer = csv.writer(f)
+            logging.debug("Writing snippet to file")
+            writer.writerow([name, snippet])
+    else:
+        tmpfile = NamedTemporaryFile(delete=False)
+        with open(filename, 'r+') as f, tmpfile:
+            reader = csv.reader(f)
+            writer = csv.writer(tmpfile)
+
+            for n,s in reader:
+                if n == "name":
+                    writer.writerow([name,snippet])
+                else:
+                    writer.writerow([n,s])
+        shutil.move(tmpfile.name, filename)
+
     logging.debug("Write successful")
     return name, snippet
 
