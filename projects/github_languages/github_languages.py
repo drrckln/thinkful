@@ -29,7 +29,7 @@ def accumulate_languages(language_dictionaries):
     accumulated = defaultdict(int)
     total = 0
     for language_dictionary in language_dictionaries:
-        for language_name, number_of_bytes in language_dictionary:
+        for language_name, number_of_bytes in language_dictionary.iteritems():
             accumulated[language_name] += number_of_bytes
             total += number_of_bytes
     return accumulated, total
