@@ -29,6 +29,7 @@ def construct(prefs):
     for key in prefs.keys():
         if prefs[key] == True:
             drink.append(random.choice(ingredients[key]))
+    # this is all complicated junk for pretty printing
     counter = 1
     for ingredient in drink:
         if counter == len(drink):
