@@ -1,17 +1,18 @@
 import argparse
 
-parser = argparse.ArgumentParser()
-parser.add_argument("square", help="display a square of a given number", type=int)
-#args = parser.parse_args()
 
-#print args.square
-#print args.square**2
-
-parser.add_argument("--verbosity", help="increase output verbosity", action ="store_true")
+parser = argparse.ArgumentParser(description="calculate X to the power of Y")
+group = parser.add_mutually_exclusive_group()
+group.add_argument("-v", "--verbose", help="increase output verbosity", action="store_true")
+group.add_argument("-q", "--quiet", help="decrease output verbosity", action="store_true")
+parser.add_argument("x", help="the base", type=int)
+parser.add_argument("y", help="the exponent", type=int)
 args = parser.parse_args()
-print args.square**2
+answer = args.x**args.y
 
-print args.verbosity
-
-if args.verbosity:
-    print "verbosity turned on"
+if args.quiet:
+    print answer
+elif args.verbose:
+    print "{} to the power {} equals {}".format(args.x, args.y, answer)
+else:
+    print "{}^{} == {}".format(args.x, args.y, answer)
